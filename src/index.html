@@ -8,22 +8,28 @@
       margin: auto;
       padding: 2em;
     }
-    div {
+    p {
       margin-bottom: 2em;
     }
   </style>
 </head>
 <body>
 
-<div>
+<h1>Raw Protobuf Demo</h1>
+
+<p>This will let you inspect a binary protobuf message (in a file.)</p>
+
+<p>Checkout the <a href="https://github.com/konsumer/rawprotorust">source code.</a></p>
+
+<p>
   Set the path (see <a href="https://github.com/confio/decode_raw">decode_raw</a> for more info):
   <input id="p" value='.' />
-</div>
+</p>
 
-<div>
+<p>
   Choose a file for your binary protobuf:
   <input type="file" id="f" />
-</div>
+</p>
 
 <pre id="o2"></pre>
 
