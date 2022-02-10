@@ -7,8 +7,7 @@
   "scripts": {
     "build": "npx -y wasm-pack build --target web && cp src/index.html pkg/",
     "start": "cd pkg && npx -y live-server",
-    "test": "cargo test",
-    "deploy": "npx -y surge pkg rawprotorust.surge.sh --token ${{ secrets.SURGE_TOKEN }}"
+    "test": "cargo test"
   },
   "sideEffects": false,
   "files": [

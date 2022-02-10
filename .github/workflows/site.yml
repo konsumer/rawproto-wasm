@@ -16,4 +16,4 @@ jobs:
       - name: Build wasm
         run: npm run build
       - name: Deploy demo-site to https://rawprotorust.surge.sh
-        run: npm run deploy
+        run: npx -y surge pkg rawprotorust.surge.sh --token ${{ secrets.SURGE_TOKEN }}
