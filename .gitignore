@@ -3,6 +3,7 @@
 node_modules
 *.log
 
+/pkg/
 /target/
 Cargo.lock
 **/*.rs.bk
