@@ -8,8 +8,6 @@
     "build": "npx -y wasm-pack build --target web && cp src/index.html pkg/",
     "start": "cd pkg && npx -y live-server",
     "test": "cargo test",
-    "deploy": "npx -y surge pkg/ rawprotorust.surge.sh",
-    "predeploy": "npm run build",
     "prestart": "npm run build"
   },
   "sideEffects": false,
