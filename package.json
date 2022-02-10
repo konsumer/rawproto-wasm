@@ -1,12 +1,21 @@
 {
   "name": "rawproto",
   "version": "1.0.0",
-  "module": "true",
-  "description": "This is a wasm `ResponseWrapper` parser written in rust. Given byte input, it will putput a JSON object.",
-  "main": "index.js",
+  "module": "pkg/rawproto.js",
+  "types": "pkg/rawproto.d.ts",
+  "description": "Decode protobuf in raw form, in wasm (for node, deno, cf workers, etc.) Based on decode_raw.",
   "scripts": {
-    "build": "npx -y wasm-pack build --target web",
-    "start": "npx -y live-server",
-    "test": "cargo test"
-  }
+    "build": "npx -y wasm-pack build --target web && cp src/index.html pkg/",
+    "start": "cd pkg && npx -y live-server",
+    "test": "cargo test",
+    "deploy": "npx -y surge pkg/ rawprotorust.surge.sh",
+    "predeploy": "npm run build",
+    "prestart": "npm run build"
+  },
+  "sideEffects": false,
+  "files": [
+    "pkg/rawproto_bg.wasm",
+    "pkg/rawproto.js",
+    "pkg/rawproto.d.ts"
+  ]
 }
