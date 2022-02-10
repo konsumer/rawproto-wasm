@@ -3,16 +3,13 @@
 </head>
 <body>
 
-Here is the output of greet:
-<pre id="o1"></pre>
-
 <div>
-Here is the path:
+Set the path (see <a href="https://github.com/confio/decode_raw">decode_raw</a> for more info):
 <input id="p" value='.' />
 </div>
 
 <div>
-Choose a binary protobuf file to see raw data:
+Choose a file for your binary protobuf:
 <input type="file" id="f" />
 </div>
 
@@ -22,12 +19,9 @@ Choose a binary protobuf file to see raw data:
 import init, { parse_raw, greet } from './rawproto.js'
 await init()
 
-const o1 = document.getElementById('o1')
 const o2 = document.getElementById('o2')
 const f = document.getElementById('f')
 const p = document.getElementById('p')
-
-o1.innerHTML = greet('World')
 
 let binary
 

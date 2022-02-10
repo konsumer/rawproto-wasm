@@ -14,12 +14,6 @@ extern "C" {
     fn log(s: &str);
 }
 
-// this is for testing comm with wasm
-#[wasm_bindgen]
-pub fn greet(name: &str) -> String {
-  format!("Hello, {}!", name)
-}
-
 // this wraps try_parse_entries and outputs JSON
 #[wasm_bindgen]
 pub fn parse_raw(bytes: &[u8], js_path: &str, js_config: &JsValue) -> JsValue {
