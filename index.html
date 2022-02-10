@@ -1,0 +1,77 @@
+<head>
+  <title>Raw Protobuf Demo</title>
+</head>
+<body>
+
+Here is the output of greet:
+<pre id="o1"></pre>
+
+<div>
+Here is the path:
+<input id="p" value='.' />
+</div>
+
+<div>
+Choose a binary protobuf file to see raw data:
+<input type="file" id="f" />
+</div>
+
+<pre id="o2"></pre>
+
+<script type="module">
+import init, { parse_raw, greet } from './pkg/rawproto.js'
+await init()
+
+const o1 = document.getElementById('o1')
+const o2 = document.getElementById('o2')
+const f = document.getElementById('f')
+const p = document.getElementById('p')
+
+o1.innerHTML = greet('World')
+
+let binary
+
+function update(){
+  if (!binary){
+    alert('you need to choose a file.')
+    return
+  }
+  const path = p.value !== '' && p.value
+  if (!path){
+    alert('you need to choose a path.')
+    return
+  }
+
+  o2.innerHTML = ''
+  
+  const o = parse_raw(binary, path, { no_fixed64: true, no_fixed32: false })
+
+  if (o){
+    const displayVal = o
+      .filter(i => i.value !== 'OpenNested' && i.value !== 'CloseNested')
+      .reduce((o, v, i, a) => {
+        const k = Object.values(v.value)
+        return {...o, [v.path.join('.')]: k[0]}
+      }, {})
+    console.log(displayVal)
+    o2.innerHTML = JSON.stringify(displayVal, null, 2)
+  } else {
+    o2.innerHTML = 'ERROR'
+  }
+}
+
+f.addEventListener('change', () => {
+  const reader = new FileReader()
+  reader.onload = () => {
+    binary = new Uint8Array(reader.result)
+    update()
+  }
+  reader.readAsArrayBuffer(f.files[0])
+})
+
+p.addEventListener('keyup', () => {
+  update()
+})
+
+</script>
+</body>

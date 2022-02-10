@@ -1,0 +1,12 @@
+{
+  "name": "rawproto",
+  "version": "1.0.0",
+  "module": "true",
+  "description": "This is a wasm `ResponseWrapper` parser written in rust. Given byte input, it will putput a JSON object.",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx -y wasm-pack build --target web",
+    "start": "npx -y live-server",
+    "test": "cargo test"
+  }
+}
