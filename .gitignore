@@ -4,6 +4,7 @@ node_modules
 *.log
 
 /pkg/
+/web/
 /target/
 Cargo.lock
 **/*.rs.bk

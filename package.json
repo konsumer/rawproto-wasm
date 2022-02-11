@@ -5,9 +5,10 @@
   "types": "pkg/rawproto.d.ts",
   "description": "Decode protobuf in raw form, in wasm (for node, deno, cf workers, etc.) Based on decode_raw.",
   "scripts": {
-    "build": "npx -y wasm-pack build --target web && cp src/index.html pkg/",
-    "start": "cd pkg && npx -y live-server",
-    "test": "cargo test"
+    "build": "npx -y wasm-pack build --target web --out-dir web && wasm-pack build --target nodejs && cp src/index.html web/ && rm pkg/package.json web/package.json",
+    "start": "npx -y live-server web",
+    "test": "cargo test && npx -y jest --verbose=true",
+    "pretest": "npm run build"
   },
   "sideEffects": false,
   "files": [

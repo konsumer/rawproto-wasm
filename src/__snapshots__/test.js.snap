@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rawproto 1`] = `
+Array [
+  Object {
+    "path": Array [
+      2,
+    ],
+    "value": Object {
+      "Bytes": Array [
+        85,
+        110,
+        107,
+        110,
+        111,
+        119,
+        110,
+      ],
+    },
+  },
+]
+`;
+
+exports[`rawproto 2`] = `
+Array [
+  Object {
+    "path": Array [
+      2,
+    ],
+    "value": Object {
+      "Bytes": Array [
+        85,
+        110,
+        107,
+        110,
+        111,
+        119,
+        110,
+      ],
+    },
+  },
+  Object {
+    "path": Array [
+      2,
+    ],
+    "value": Object {
+      "Bytes": Array [
+        85,
+        110,
+        107,
+        110,
+        111,
+        119,
+        110,
+      ],
+    },
+  },
+]
+`;
