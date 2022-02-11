@@ -14,4 +14,4 @@ wasm-bindgen = { version = "0.2.79", features = ["serde-serialize"] }
 serde = {version = "1.0.136", features = ["derive"]}
 web-sys = {version = "0.3.56", features = ["console"] }
 js-sys = "0.3.56"
-protofish = "0.5.2"
+decode_raw = { git = "https://github.com/confio/decode_raw.git", branch = "main" }
