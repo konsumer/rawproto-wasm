@@ -3,6 +3,8 @@ name = "rawproto"
 description = "use decode_raw function to create a wasm-based method of getting rawproto"
 version = "0.1.0"
 edition = "2021"
+repository = "https://github.com/konsumer/rawprotorust.git"
+license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
