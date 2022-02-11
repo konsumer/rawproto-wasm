@@ -11,10 +11,4 @@ npm run build
 
 # start local test-server
 npm start
-
-# run rust unit-tests
-npm test
-
-# if you have cred, deploy on surge
-npm run deploy
 ```
