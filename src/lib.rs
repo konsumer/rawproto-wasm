@@ -18,7 +18,7 @@ pub fn parse_raw(bytes: &[u8], js_path: &str, js_config: &JsValue) -> JsValue {
 
     let mut ret: Vec<SerdeEntry> = vec![];
 
-    let entries = try_parse_entries(bytes, &[], config.into()).unwrap_or_default();
+    let entries = try_parse_entries(bytes, config.into()).unwrap_or_default();
     for entry in entries.into_iter().filter(|e| is_selected(e, &query)) {
         ret.push(entry.into());
     }
