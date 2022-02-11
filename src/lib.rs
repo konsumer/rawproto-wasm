@@ -4,16 +4,11 @@ use decode_raw::{is_selected, try_parse_entries, Entry, EntryValue, ParseConfig,
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
-extern "C" {
-    #[wasm_bindgen(js_namespace = console)]
-    fn log(s: &str);
-}
-
 // this wraps try_parse_entries and outputs JSON
 #[wasm_bindgen]
 pub fn parse_raw(bytes: &[u8], js_path: &str, js_config: &JsValue) -> JsValue {
-    let query = SelectQuery::parse(js_path).unwrap(); // todo handle parse error
+    console_error_panic_hook::set_once();
+    let query = SelectQuery::parse(js_path).unwrap();
     let config: SerdeParseConfig = js_config.into_serde().unwrap();
 
     let mut ret: Vec<SerdeEntry> = vec![];
