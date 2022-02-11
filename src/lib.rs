@@ -1,6 +1,4 @@
-// expose a raw protobuf parser to wasm
-// code mostly came from // this is from https://github.com/confio/decode_raw
-// with a little wasm wrapping
+// wrap decode_raw with wasm
 
 use decode_raw::{is_selected, try_parse_entries, Entry, EntryValue, ParseConfig, SelectQuery};
 use serde::{Deserialize, Serialize};
@@ -24,15 +22,7 @@ pub fn parse_raw(bytes: &[u8], js_path: &str, js_config: &JsValue) -> JsValue {
     for entry in entries.into_iter().filter(|e| is_selected(e, &query)) {
         ret.push(entry.into());
     }
-
     let js_ret = JsValue::from_serde(&ret).unwrap();
-
-    // log(&format!("bytes: {:?}", bytes));
-    // log(&format!("config: {:?}", config));
-    // log(&format!("js_path: {:?}", js_path));
-    // log(&format!("path: {:?}", path));
-    // log(&format!("ret: {:?}", ret));
-
     js_ret
 }
 
@@ -84,29 +74,4 @@ impl From<SerdeParseConfig> for ParseConfig {
             no_fixed32: source.no_fixed32,
         }
     }
-}
-
-#[cfg(test)]
-mod tests {
-
-    // TODO: not sure why, but these throw type annotations needed error
-
-    // #[test]
-    // fn can_parse_empty() {
-    //     assert_eq!(parse_select_query(""), &[]);
-    //     assert_eq!(parse_select_query("."), &[]);
-    // }
-
-    // #[test]
-    // fn can_parse_simple() {
-    //     assert_eq!(parse_select_query("1"), &[1]);
-    //     assert_eq!(parse_select_query(".1"), &[1]);
-    // }
-
-    // #[test]
-    // fn can_parse_multi() {
-    //     assert_eq!(parse_select_query("1.2"), &[1, 2]);
-    //     assert_eq!(parse_select_query(".1.2"), &[1, 2]);
-    //     assert_eq!(parse_select_query("3.3"), &[3, 3]);
-    // }
 }

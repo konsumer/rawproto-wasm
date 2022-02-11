@@ -15,3 +15,4 @@ serde = {version = "1.0.136", features = ["derive"]}
 web-sys = {version = "0.3.56", features = ["console"] }
 js-sys = "0.3.56"
 decode_raw = { git = "https://github.com/confio/decode_raw.git", branch = "main" }
+console_error_panic_hook = "0.1.7"
