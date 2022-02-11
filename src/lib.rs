@@ -2,7 +2,7 @@
 // code mostly came from // this is from https://github.com/confio/decode_raw
 // with a little wasm wrapping
 
-use decode_raw::{try_parse_entries, Entry, EntryValue, ParseConfig};
+use decode_raw::{is_selected, try_parse_entries, Entry, EntryValue, ParseConfig, SelectQuery};
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 
@@ -15,17 +15,14 @@ extern "C" {
 // this wraps try_parse_entries and outputs JSON
 #[wasm_bindgen]
 pub fn parse_raw(bytes: &[u8], js_path: &str, js_config: &JsValue) -> JsValue {
+    let query = SelectQuery::parse(js_path).unwrap(); // todo handle parse error
     let config: SerdeParseConfig = js_config.into_serde().unwrap();
-    let path = parse_select_query(js_path);
+
     let mut ret: Vec<SerdeEntry> = vec![];
 
-    if let Some(entries) = try_parse_entries(bytes, &[], config.into()) {
-        for entry in entries {
-            if !entry.path.starts_with(&path) {
-                continue;
-            }
-            ret.push(entry.into());
-        }
+    let entries = try_parse_entries(bytes, &[], config.into()).unwrap_or_default();
+    for entry in entries.into_iter().filter(|e| is_selected(e, &query)) {
+        ret.push(entry.into());
     }
 
     let js_ret = JsValue::from_serde(&ret).unwrap();
@@ -87,20 +84,6 @@ impl From<SerdeParseConfig> for ParseConfig {
             no_fixed32: source.no_fixed32,
         }
     }
-}
-
-/// parse a raw-field-query from str
-pub fn parse_select_query(input: &str) -> Vec<u64> {
-    let prepared = input.trim_start_matches('.');
-    if prepared.len() == 0 {
-        return Vec::default();
-    }
-    let components: Vec<&str> = prepared.split('.').collect();
-    let path: Vec<u64> = components
-        .into_iter()
-        .map(|str| str.parse::<u64>().unwrap())
-        .collect();
-    path
 }
 
 #[cfg(test)]
