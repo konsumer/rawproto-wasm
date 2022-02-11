@@ -43,30 +43,41 @@ const p = document.getElementById('p')
 
 let binary
 
-function update(){
-  if (!binary){
-    alert('you need to choose a file.')
-    return
-  }
-  const path = p.value !== '' && p.value
-  if (!path){
-    alert('you need to choose a path.')
-    return
-  }
+const indent = (n=1, c = '  ') => [...(new Array(n))].map(() => c).join('')
 
+function outputPrettyString (o, path) {
+  let out = ''
+  let i = ''
+  for (const entry of o){
+    i = indent(entry.path.length - path.split('.').length)
+    if (entry.value === 'OpenNested'){
+      out += `\n${i}{`
+    } else if (entry.value === 'CloseNested'){
+      out += `\n${i}}`
+    } else {
+      const v = entry.value.Bytes ? String.fromCharCode(...entry.value.Bytes) : entry.value.Int
+      const p = entry.path.join('.').replace(new RegExp(`^${path}`), '')
+      out += `\n${i}${p}: ${v}`
+    }
+  }
+  return out
+}
+
+function update(){
   o2.innerHTML = ''
+
+  if (!binary){
+    return
+  }
+  let path = p.value !== '' && p.value
+  if (!path){
+    return
+  }
   
   const o = parse_raw(binary, path, { no_fixed64: true, no_fixed32: false })
 
   if (o){
-    const displayVal = o
-      .filter(i => i.value !== 'OpenNested' && i.value !== 'CloseNested')
-      .reduce((o, v, i, a) => {
-        const k = Object.values(v.value)
-        return {...o, [v.path.join('.')]: k[0]}
-      }, {})
-    console.log(displayVal)
-    o2.innerHTML = JSON.stringify(displayVal, null, 2)
+    o2.innerHTML = outputPrettyString(o, path.replace(/^\.+/, ''))
   } else {
     o2.innerHTML = 'ERROR'
   }

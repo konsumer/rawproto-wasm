@@ -17,10 +17,10 @@ extern "C" {
 // this wraps try_parse_entries and outputs JSON
 #[wasm_bindgen]
 pub fn parse_raw(bytes: &[u8], js_path: &str, js_config: &JsValue) -> JsValue {
+    console_error_panic_hook::set_once();
     let config = js_config.into_serde().unwrap();
     let path = parse_select_query(js_path);
     let mut ret: Vec<Entry> = vec![];
-
     if let Some(entries) = try_parse_entries(bytes, &[], config) {
         for entry in entries {
             if !entry.path.starts_with(&path) {
@@ -29,15 +29,7 @@ pub fn parse_raw(bytes: &[u8], js_path: &str, js_config: &JsValue) -> JsValue {
             ret.push(entry);
         }
     }
-
     let js_ret = JsValue::from_serde(&ret).unwrap();
-
-    // log(&format!("bytes: {:?}", bytes));
-    // log(&format!("config: {:?}", config));
-    log(&format!("js_path: {:?}", js_path));
-    log(&format!("path: {:?}", path));
-    // log(&format!("ret: {:?}", ret));
-
     js_ret
 }
 
