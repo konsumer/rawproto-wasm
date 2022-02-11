@@ -16,14 +16,18 @@ pub fn parse_raw(bytes: &[u8], js_path: &str, js_config: &JsValue) -> JsValue {
     let query = SelectQuery::parse(js_path).unwrap(); // todo handle parse error
     let config: SerdeParseConfig = js_config.into_serde().unwrap();
 
-    let mut ret: Vec<SerdeEntry> = vec![];
-
-    let entries = try_parse_entries(bytes, config.into()).unwrap_or_default();
-    for entry in entries.into_iter().filter(|e| is_selected(e, &query)) {
-        ret.push(entry.into());
+    match try_parse_entries(bytes, config.into()) {
+        Some(entries) => {
+            let mut ret: Vec<SerdeEntry> = vec![];
+            for entry in entries.into_iter().filter(|e| is_selected(e, &query)) {
+                ret.push(entry.into());
+            }
+            JsValue::from_serde(&ret).unwrap()
+        }
+        None => {
+            panic!("Input bytes is not a valid protobuf serialization");
+        }
     }
-    let js_ret = JsValue::from_serde(&ret).unwrap();
-    js_ret
 }
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
