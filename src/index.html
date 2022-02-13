@@ -55,7 +55,16 @@ function outputPrettyString (o, path) {
     } else if (entry.value === 'CloseNested'){
       out += `\n${i}}`
     } else {
-      const v = entry.value.Bytes ? String.fromCharCode(...entry.value.Bytes) : entry.value.Int
+      console.info(entry.value);
+      const v = entry.value.Bytes !== undefined
+        ? String.fromCharCode(...entry.value.Bytes)
+        : entry.value.Varint !== undefined
+          ? entry.value.Varint
+          : entry.value.Fixed64 !== undefined
+            ? entry.value.Fixed64
+            : entry.value.Fixed32 !== undefined
+              ? entry.value.Fixed32
+              : undefined;
       const p = entry.path.join('.').replace(new RegExp(`^${path}`), '')
       out += `\n${i}${p}: ${v}`
     }
@@ -74,7 +83,7 @@ function update(){
     return
   }
   
-  const o = parse_raw(binary, path, { no_fixed64: true, no_fixed32: false })
+  const o = parse_raw(binary, path, { no_fixed64: false, no_fixed32: false })
 
   if (o){
     o2.innerHTML = outputPrettyString(o, path.replace(/^\.+/, ''))

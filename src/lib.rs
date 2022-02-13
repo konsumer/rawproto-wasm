@@ -42,7 +42,9 @@ impl From<Entry> for SerdeEntry {
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub enum SerdeEntryValue {
-    Int(u128),
+    Fixed64([u8; 8]),
+    Fixed32([u8; 4]),
+    Varint(u128),
     /// Wire type 2 (length delimited).
     Bytes(Vec<u8>),
     OpenNested,
@@ -52,7 +54,9 @@ pub enum SerdeEntryValue {
 impl From<EntryValue> for SerdeEntryValue {
     fn from(source: EntryValue) -> SerdeEntryValue {
         match source {
-            EntryValue::Int(v) => SerdeEntryValue::Int(v),
+            EntryValue::Fixed64(v) => SerdeEntryValue::Fixed64(v),
+            EntryValue::Fixed32(v) => SerdeEntryValue::Fixed32(v),
+            EntryValue::Varint(v) => SerdeEntryValue::Varint(v),
             EntryValue::Bytes(v) => SerdeEntryValue::Bytes(v),
             EntryValue::OpenNested => SerdeEntryValue::OpenNested,
             EntryValue::CloseNested => SerdeEntryValue::CloseNested,
