@@ -1,6 +1,6 @@
 {
   "name": "rawproto-wasm",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "pkg/rawproto.js",
   "types": "pkg/rawproto.d.ts",
   "description": "Decode protobuf in raw form, in wasm (for node, deno, cf workers, etc.) Based on decode_raw.",
