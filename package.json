@@ -19,5 +19,9 @@
     "web/rawproto_bg.wasm",
     "web/rawproto.js",
     "web/rawproto.d.ts"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/konsumer/rawproto-wasm.git"
+  }
 }
