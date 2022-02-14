@@ -7,8 +7,7 @@
   "scripts": {
     "build": "npx -y wasm-pack build --target web --out-dir web && wasm-pack build --target nodejs && cp src/index.html web/ && rm pkg/package.json web/package.json",
     "start": "npx -y live-server web",
-    "test": "cargo test && npx -y jest --verbose=true",
-    "pretest": "npm run build",
+    "test": "npx -y jest --verbose=true",
     "prepublish": "npm run build"
   },
   "sideEffects": false,

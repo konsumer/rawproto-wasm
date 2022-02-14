@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rawproto 1`] = `
+exports[`rawproto basic parsing 1`] = `
 Array [
   Object {
     "path": Array [
@@ -21,7 +21,7 @@ Array [
 ]
 `;
 
-exports[`rawproto 2`] = `
+exports[`rawproto basic parsing 2`] = `
 Array [
   Object {
     "path": Array [
@@ -55,5 +55,12 @@ Array [
       ],
     },
   },
+]
+`;
+
+exports[`rawproto string parsing 1`] = `
+Array [
+  "Unknown",
+  "Unknown",
 ]
 `;
