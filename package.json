@@ -1,5 +1,5 @@
 {
-  "name": "rawproto",
+  "name": "rawproto-wasm",
   "version": "1.0.0",
   "module": "pkg/rawproto.js",
   "types": "pkg/rawproto.d.ts",
@@ -8,12 +8,16 @@
     "build": "npx -y wasm-pack build --target web --out-dir web && wasm-pack build --target nodejs && cp src/index.html web/ && rm pkg/package.json web/package.json",
     "start": "npx -y live-server web",
     "test": "cargo test && npx -y jest --verbose=true",
-    "pretest": "npm run build"
+    "pretest": "npm run build",
+    "prepublish": "npm run build"
   },
   "sideEffects": false,
   "files": [
     "pkg/rawproto_bg.wasm",
     "pkg/rawproto.js",
-    "pkg/rawproto.d.ts"
+    "pkg/rawproto.d.ts",
+    "web/rawproto_bg.wasm",
+    "web/rawproto.js",
+    "web/rawproto.d.ts"
   ]
 }
