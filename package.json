@@ -1,23 +1,19 @@
 {
   "name": "rawproto-wasm",
   "version": "1.0.4",
-  "main": "pkg/rawproto.js",
-  "types": "pkg/rawproto.d.ts",
+  "main": "target/web/rawproto.js",
+  "types": "target/web/rawproto.d.ts",
   "description": "Decode protobuf in raw form, in wasm (for node, deno, cf workers, etc.) Based on decode_raw.",
   "scripts": {
-    "build": "npx -y wasm-pack build --target web --out-dir web && wasm-pack build --target nodejs && cp src/index.html web/ && rm pkg/package.json web/package.json",
+    "build": "npx -y wasm-pack build --target bundler --release --out-dir target/web",
     "start": "npx -y live-server web",
     "test": "npx -y jest --verbose=true",
     "prepublish": "npm run build"
   },
   "sideEffects": false,
   "files": [
-    "pkg/rawproto_bg.wasm",
-    "pkg/rawproto.js",
-    "pkg/rawproto.d.ts",
-    "web/rawproto_bg.wasm",
-    "web/rawproto.js",
-    "web/rawproto.d.ts"
+    "target/web/rawproto_bg.wasm",
+    "target/web/rawproto.d.ts"
   ],
   "repository": {
     "type": "git",
