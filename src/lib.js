@@ -1,11 +1,18 @@
-// this is the entry-point for the bundler
+// this is the library entry-point
 
-import r from '../target/web/rawproto_bg.js'
+import init from '../target/web/rawproto.js'
+import wasmBytes from '../target/web/wasm.js'
 
-export const parseRaw = r.parse_raw
+const r = await init(wasmBytes)
 
+// wrap parse_raw with optional params
+export function parseRaw(bin, path='.', cfg = { no_fixed64: false, no_fixed32: false }) {
+  return r.parse_raw(bin, path, cfg)
+}
+
+// get a string from a path
 export function getString (binary, path) {
-  const entries = parseRaw(binary, path, { no_fixed64: true, no_fixed32: true })
+  const entries = parseRaw(binary, path)
   return entries.map(entry => {
     return String.fromCharCode(...entry.value.Bytes)
   })

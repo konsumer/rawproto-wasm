@@ -11,25 +11,14 @@ This has some ideas in common with [rawproto](https://github.com/konsumer/rawpro
 ```
 # build the module
 npm run build 
-
-# start local test-server
-npm start
 ```
 
 This is still very early ideas around this, but here is a example usage:
 
 ```js
-const { parse_raw } = require('rawproto-wasm')
-const { readFileSync } = require('fs')
+import { getString } from 'rawproto-wasm'
+import { readFile } from 'fs/promises'
 
-function getString (binary, path) {
-  const entries = parse_raw(binary, path, { no_fixed64: true, no_fixed32: true })
-  console.log(entries)
-  return entries.map(entry => {
-    return String.fromCharCode(...entry.value.Bytes)
-  })
-}
-
-const binary = readFileSync('test.bin')
+const binary = await readFile('test.bin')
 console.log(getString(binary, '.2'))
 ```
