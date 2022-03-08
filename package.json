@@ -5,18 +5,31 @@
   "description": "Decode protobuf in raw form, in wasm (for node, deno, cf workers, etc.) Based on decode_raw.",
   "scripts": {
     "build:wasm": "cargo build --release --target wasm32-unknown-unknown",
-    "build:js": "wasm-bindgen --target web --no-typescript --out-dir target/web target/wasm32-unknown-unknown/release/rawproto.wasm && node tools/postprocess.js",
+    "build:js": "wasm-bindgen --target web --no-typescript --out-dir target/web target/wasm32-unknown-unknown/release/rawproto.wasm && node tools/postprocess.js && npx -y microbundle",
     "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' npx -y jest --verbose=true",
     "build": "npm run build:wasm && npm run build:js",
     "prepublish": "npm run build"
   },
   "files": [
-    "target/web/rawproto.js",
-    "target/web/wasm.js",
-    "target/web/rawproto_bg.wasm"
+    "target/node/rawproto-wasm.cjs",
+    "target/node/rawproto-wasm.cjs.map",
+    "target/node/rawproto-wasm.js",
+    "target/node/rawproto-wasm.js.map",
+    "target/node/rawproto-wasm.module.js",
+    "target/node/rawproto-wasm.module.js.map",
+    "target/node/rawproto-wasm.umd.js",
+    "target/node/rawproto-wasm.umd.js.map"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/konsumer/rawproto-wasm.git"
-  }
+  },
+  "source": "src/lib.js",
+  "exports": {
+    "require": "./target/node/rawproto-wasm.cjs",
+    "default": "./target/node/rawproto-wasm.js"
+  },
+  "main": "./target/node/rawproto-wasm.cjs",
+  "module": "./target/node/rawproto-wasm.module.js",
+  "unpkg": "./target/node/rawproto-wasm.umd.js"
 }

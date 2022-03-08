@@ -3,7 +3,12 @@
 import init from '../target/web/rawproto.js'
 import wasmBytes from '../target/web/wasm.js'
 
-const r = await init(wasmBytes)
+let r
+
+async function sideeffect () {
+   r = await init(wasmBytes)
+}
+sideeffect()
 
 // wrap parse_raw with optional params
 export function parseRaw(bin, path='.', cfg = { no_fixed64: false, no_fixed32: false }) {
