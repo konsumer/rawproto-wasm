@@ -17,11 +17,12 @@ npm i rawproto-wasm
 Now, use it like this:
 
 ```js
-import { getString } from 'rawproto-wasm'
+import { getString, parseRaw } from 'rawproto-wasm'
 import { readFile } from 'fs/promises'
 
 const binary = await readFile('test.bin')
-console.log(getString(binary, '.2'))
+console.log(await parseRaw(binary, '.'))
+console.log(await getString(binary, '.2'))
 ```
 
 ## dev

@@ -5,10 +5,12 @@
   "description": "Decode protobuf in raw form, in wasm (for node, deno, cf workers, etc.) Based on decode_raw.",
   "scripts": {
     "build:wasm": "cargo build --release --target wasm32-unknown-unknown",
-    "build:js": "wasm-bindgen --target web --no-typescript --out-dir target/web target/wasm32-unknown-unknown/release/rawproto.wasm && node tools/postprocess.js && npx -y microbundle",
+    "build:js": "wasm-bindgen --target web --no-typescript --out-dir target/web target/wasm32-unknown-unknown/release/rawproto.wasm && node tools/postprocess.js",
+    "build:bundle": "npx -y microbundle",
     "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' npx -y jest --verbose=true",
+    "pretest": "npm run build",
     "build": "npm run build:wasm && npm run build:js",
-    "prepare": "npm run build"
+    "prepare": "npm run build && npm run build:bundle"
   },
   "files": [
     "target/node/rawproto-wasm.cjs",

@@ -14,8 +14,8 @@ export async function parseRaw(bin, path='.', cfg = { no_fixed64: false, no_fixe
 }
 
 // get a string from a path
-export function getString (binary, path) {
-  const entries = parseRaw(binary, path)
+export async function getString (binary, path) {
+  const entries = await parseRaw(binary, path)
   return entries.map(entry => {
     return String.fromCharCode(...entry.value.Bytes)
   })
