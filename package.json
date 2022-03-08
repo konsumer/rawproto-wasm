@@ -8,7 +8,7 @@
     "build:js": "wasm-bindgen --target web --no-typescript --out-dir target/web target/wasm32-unknown-unknown/release/rawproto.wasm && node tools/postprocess.js && npx -y microbundle",
     "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' npx -y jest --verbose=true",
     "build": "npm run build:wasm && npm run build:js",
-    "prepublish": "npm run build"
+    "prepare": "npm run build"
   },
   "files": [
     "target/node/rawproto-wasm.cjs",
