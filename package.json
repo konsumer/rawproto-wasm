@@ -6,9 +6,14 @@
   "scripts": {
     "build:wasm": "cargo build --release --target wasm32-unknown-unknown",
     "build:js": "wasm-bindgen --target web --no-typescript --out-dir target/web target/wasm32-unknown-unknown/release/rawproto.wasm && node tools/postprocess.js",
-    "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' npx -y jest --verbose=true"
+    "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' npx -y jest --verbose=true",
+    "build": "npm run build:wasm && npm run build:js",
+    "prepublish": "npm run build"
   },
   "files": [
+    "target/web/rawproto.js",
+    "target/web/wasm.js",
+    "target/web/rawproto_bg.wasm"
   ],
   "repository": {
     "type": "git",
