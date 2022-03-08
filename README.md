@@ -6,14 +6,15 @@ You can see a web-demo [here](https://rawprotorust.surge.sh/)
 
 This has some ideas in common with [rawproto](https://github.com/konsumer/rawproto), but marks a different direction that can parse a bit faster, and eventually handle partial parsing (mixing proto def with raw fields.)
 
-## dev
+## usage
+
+First intall it in your project:
 
 ```
-# build the module
-npm run build 
+npm i rawproto-wasm
 ```
 
-This is still very early ideas around this, but here is a example usage:
+Now, use it like this:
 
 ```js
 import { getString } from 'rawproto-wasm'
@@ -21,4 +22,11 @@ import { readFile } from 'fs/promises'
 
 const binary = await readFile('test.bin')
 console.log(getString(binary, '.2'))
+```
+
+## dev
+
+```
+# build the module
+npm run build 
 ```
